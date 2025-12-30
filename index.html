@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaple Sarkar Seva Kendra | Tushar Fande</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --accent: #ff9933; 
+            --blue: #0066ff; 
+            --dark: #080808;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { background: var(--dark); color: #fff; overflow-x: hidden; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 10px; }
+
+        .news-bar { background: var(--accent); color: #000; padding: 8px 0; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; }
+
+        nav {
+            padding: 20px 8%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo { font-family: 'Syncopate'; font-weight: 700; font-size: 1.2rem; letter-spacing: 2px; }
+        .logo span { color: var(--accent); }
+        
+        .nav-btn { background: transparent; border: 1px solid var(--blue); color: var(--blue); padding: 10px 20px; border-radius: 30px; cursor: pointer; font-size: 0.7rem; font-family: 'Syncopate'; transition: 0.4s; margin-left: 10px; }
+        .nav-btn:hover, .nav-btn.active { background: var(--blue); color: #fff; box-shadow: 0 0 15px rgba(0, 102, 255, 0.4); }
+
+        .hero { text-align: center; padding: 60px 8% 20px; }
+        .hero h1 { font-family: 'Syncopate'; font-size: 2.5rem; margin-bottom: 15px; background: linear-gradient(to right, #fff, #666); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { color: #888; font-size: 1rem; max-width: 600px; margin: 0 auto 30px; }
+
+        .search-box { position: relative; max-width: 600px; margin: 0 auto 50px; }
+        .search-box input { width: 100%; padding: 18px 25px; border-radius: 40px; border: 1px solid var(--border); background: #111; color: #fff; font-size: 1rem; outline: none; transition: 0.3s; }
+        .search-box input:focus { border-color: var(--blue); box-shadow: 0 0 20px rgba(0, 102, 255, 0.2); }
+
+        /* Services Grid */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 0 8% 60px; }
+        .service-card {
+            background: var(--card-bg); border: 1px solid var(--border); padding: 40px 20px; border-radius: 24px;
+            text-align: center; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
+            position: relative; overflow: hidden;
+        }
+        .service-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(0,102,255,0.05)); opacity: 0; transition: 0.4s; }
+        .service-card:hover { transform: translateY(-10px); border-color: var(--blue); background: rgba(0, 102, 255, 0.05); }
+        .service-card:hover::before { opacity: 1; }
+        .service-card i { font-size: 2.5rem; color: var(--blue); margin-bottom: 20px; display: block; }
+        .service-card h3 { font-size: 0.9rem; font-family: 'Syncopate'; text-transform: uppercase; color: #eee; }
+
+        /* Pages */
+        .page { display: none; padding: 60px 8%; min-height: 80vh; animation: fadeIn 0.5s ease forwards; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Forms */
+        .glass-box { background: #0c0c0c; border: 1px solid var(--border); padding: 40px; border-radius: 30px; max-width: 550px; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 0.7rem; font-family: 'Syncopate'; color: #555; margin-bottom: 8px; }
+        input, select { width: 100%; padding: 15px; background: #000; border: 1px solid #222; color: #fff; border-radius: 12px; outline: none; }
+        input:focus { border-color: var(--blue); }
+        .btn-primary { width: 100%; padding: 18px; background: var(--blue); border: none; color: #fff; font-family: 'Syncopate'; font-size: 0.8rem; font-weight: bold; border-radius: 12px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-primary:hover { background: #0052cc; transform: scale(1.02); }
+
+        /* Map & Footer */
+        .map-section { margin-top: 50px; border-radius: 30px; overflow: hidden; border: 1px solid var(--border); height: 350px; }
+        footer { padding: 80px 8% 40px; background: #030303; border-top: 1px solid var(--border); }
+        .footer-content { display: grid; grid-template-columns: 2fr 1fr; gap: 50px; }
+        .contact-card h2 { color: var(--blue); font-family: 'Syncopate'; margin-bottom: 20px; }
+        .contact-card p { margin-bottom: 12px; color: #888; font-size: 0.9rem; }
+        .contact-card i { color: var(--accent); margin-right: 10px; width: 20px; }
+
+        @media (max-width: 768px) {
+            .footer-content { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8rem; }
+            nav { padding: 15px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="news-bar">
+        <marquee scrollamount="6">🎯 AAPLE SARKAR SEVA KENDRA - TUSHAR FANDE (9822467937) - NAGPUR (Tahsil va Jilhadhikari Karyalay Sambandhit Sarv Kame) 🎯</marquee>
+    </div>
+
+    <nav>
+        <div class="logo">TUSHAR <span>FANDE</span></div>
+        <div>
+            <button class="nav-btn active" onclick="showPage('home')">HOME</button>
+            <button class="nav-btn" onclick="showPage('track')">TRACK STATUS</button>
+            <button class="nav-btn" onclick="showPage('admin-login')"><i class="fas fa-user-shield"></i></button>
+        </div>
+    </nav>
+
+    <div id="home" class="page active">
+        <div class="hero">
+            <h1>SMART DIGITAL KENDRA</h1>
+            <p>Nagpur ka sabse bharosemand Seva Kendra. Hum aapke sarkari kaamo ko banate hain asaan aur tez.</p>
+            <div class="search-box">
+                <input type="text" id="svcSearch" placeholder="Service search karein... (e.g. Income, Caste, Pan)" onkeyup="searchService()">
+            </div>
+        </div>
+
+        <div class="services-grid" id="main-services"></div>
+    </div>
+
+    <div id="apply-page" class="page">
+        <div class="glass-box">
+            <h2 id="form-title" style="color:var(--blue); font-family:'Syncopate'; margin-bottom:10px;"></h2>
+            <p id="docs-info" style="color:#666; font-size:0.8rem; margin-bottom:30px; padding-bottom:15px; border-bottom:1px solid #222;"></p>
+            
+            <form id="mainApplyForm">
+                <div class="input-group">
+                    <label>Purn Naam (Full Name)</label>
+                    <input type="text" id="cust_name" placeholder="Enter Full Name" required>
+                </div>
+                <div class="input-group">
+                    <label>WhatsApp Number</label>
+                    <input type="tel" id="cust_phone" placeholder="Enter Phone Number" required>
+                </div>
+                <button type="submit" class="btn-primary">SUBMIT APPLICATION <i class="fab fa-whatsapp"></i></button>
+            </form>
+            <button onclick="showPage('home')" style="background:none; border:none; color:#555; margin-top:20px; width:100%; cursor:pointer;">← Go Back Home</button>
+        </div>
+    </div>
+
+    <div id="track" class="page">
+        <div class="glass-box">
+            <h2 style="font-family:'Syncopate'; margin-bottom:20px;">TRACK <span style="color:var(--accent)">STATUS</span></h2>
+            <p style="color:#555; margin-bottom:20px;">Apna status check karne ke liye registered naam daalein.</p>
+            <input type="text" id="track_name" placeholder="Enter Registered Name">
+            <button class="btn-primary" onclick="trackApplication()">CHECK STATUS</button>
+            <div id="track-result" style="margin-top:25px;"></div>
+        </div>
+    </div>
+
+    <div id="admin-login" class="page">
+        <div class="glass-box">
+            <h2 style="font-family:'Syncopate'">ADMIN LOGIN</h2><br>
+            <input type="password" id="admin_key" placeholder="Enter Master Key">
+            <button class="btn-primary" onclick="checkAdmin()">LOGIN TO DASHBOARD</button>
+        </div>
+    </div>
+
+    <div id="admin-dash" class="page">
+        <h2 style="font-family:'Syncopate'; color:var(--blue);">DASHBOARD</h2>
+        <div id="admin-list" style="margin-top:30px;"></div>
+        <button class="nav-btn" onclick="showPage('home')" style="margin-top:30px; margin-left:0;">LOGOUT</button>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="contact-card">
+                <h2>TUSHAR FANDE</h2>
+                <p><i class="fas fa-map-marker-alt"></i> Darshan Colony, Nandanvan, Nagpur, MH</p>
+                <p><i class="fas fa-phone-alt"></i> +91 9822467937</p>
+                <p><i class="fas fa-clock"></i> 10:00 AM - 08:00 PM (Monday to Saturday)</p>
+                <div class="map-section">
+                    <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119066.41702235941!2d79.00247348981665!3d21.159340294966683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c0a5a31f13ef%3A0x67a109ec0904a167!2sNagpur%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <p style="color:#555;">© 2025 Digital India Service</p>
+                <p style="color:#555;">Tushar Fande - Setu Kendra Nagpur</p>
+            </div>
+        </div>
+    </footer>
+
+<script>
+/* =======================
+   SERVICES DATA
+======================= */
+const serviceData = {
+    "प्रतिज्ञा पत्र / एफिडेविट": { icon: "fa-file-signature", docs: "Aadhar Card, Photo, Reason" },
+    "इन्कम सर्टिफिकेट": { icon: "fa-wallet", docs: "Ration Card, Aadhar, Talathi Report" },
+    "नॉन-क्रिमीलीयर": { icon: "fa-user-tag", docs: "Caste Cert, 3 Years Income Proof" },
+    "गुमास्ता (Shop Act)": { icon: "fa-store", docs: "Shop Photo, Light Bill, Aadhar" },
+    "रेंट एग्रीमेंट / किरायापत्र": { icon: "fa-key", docs: "Owner & Tenant Aadhar, Property Docs" },
+    "उद्योग आधार (MSME)": { icon: "fa-industry", docs: "Aadhar, Bank Details, Business Name" },
+    "फुड लायसन्स (FSSAI)": { icon: "fa-utensils", docs: "Photo, Aadhar, Business Type" },
+    "राजपत्र / गॅजेट": { icon: "fa-book", docs: "Old ID, Photo, Affidavit" },
+    "कास्ट सर्टिफिकेट": { icon: "fa-users", docs: "School Leaving, Father's Proof" },
+    "पॅन कार्ड (New/Corr)": { icon: "fa-id-card", docs: "Aadhar Card, 2 Photos" },
+    "आधार कार्ड (Print/Update)": { icon: "fa-address-card", docs: "Enrollment Slip / Aadhar Number" },
+    "डोमेसियल सर्टिफिकेट": { icon: "fa-home", docs: "Stay Proof (15Yrs), Birth Cert" },
+    "पासपोर्ट एप्लीकेशन": { icon: "fa-passport", docs: "Edu Proof, Aadhar, Birth Proof" },
+    "रेशन कार्ड": { icon: "fa-folder-open", docs: "Old Card, Aadhar of Family Members" },
+    "फायनान्स सुविधा": { icon: "fa-hand-holding-usd", docs: "PAN, Aadhar, 6 Month Statement" },
+    "Voter ID Card": { icon: "fa-vote-yea", docs: "Age Proof, Address Proof, Photo" }
+};
+
+let db = JSON.parse(localStorage.getItem("fande_master_db")) || [];
+let currentService = "";
+
+/* =======================
+   HOME RENDER
+======================= */
+function renderHome(filter = "") {
+    const grid = document.getElementById("main-services");
+    grid.innerHTML = "";
+
+    Object.keys(serviceData).forEach(service => {
+        if (service.toLowerCase().includes(filter.toLowerCase())) {
+            grid.innerHTML += `
+                <div class="service-card" onclick="openApply('${service}')">
+                    <i class="fas ${serviceData[service].icon}"></i>
+                    <h3>${service}</h3>
+                </div>
+            `;
+        }
+    });
+}
+renderHome();
+
+function searchService() {
+    renderHome(document.getElementById("svcSearch").value);
+}
+
+/* =======================
+   PAGE SWITCH
+======================= */
+function showPage(id) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+    window.scrollTo(0, 0);
+}
+
+/* =======================
+   APPLY PAGE
+======================= */
+function openApply(service) {
+    currentService = service;
+    document.getElementById("form-title").innerText = service;
+    document.getElementById("docs-info").innerText =
+        "Zaruri Documents: " + serviceData[service].docs;
+    showPage("apply-page");
+}
+
+/* =======================
+   FORM SUBMIT (FIXED)
+======================= */
+document.getElementById("mainApplyForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("cust_name").value.trim();
+    const phone = document.getElementById("cust_phone").value.trim();
+    const id = "TF-" + Math.floor(1000 + Math.random() * 9000);
+
+    const record = {
+        id,
+        name,
+        phone,
+        service: currentService,
+        status: "Process Pending",
+        date: new Date().toLocaleDateString()
+    };
+
+    db.push(record);
+    localStorage.setItem("fande_master_db", JSON.stringify(db));
+
+    // ✅ FIXED WhatsApp Message
+    const msg = `*NEW APPLICATION*
+------------------
+*Service:* ${currentService}
+*Name:* ${name}
+*Phone:* ${phone}
+*App ID:* ${id}
+*Date:* ${record.date}
+------------------
+_Sent via Tushar Fande Web Portal_`;
+
+    window.open(
+        `https://wa.me/919822467937?text=${encodeURIComponent(msg)}`,
+        "_blank"
+    );
+
+    alert("Application Submitted! Your ID: " + id);
+    showPage("home");
+});
+
+/* =======================
+   TRACK STATUS
+======================= */
+function trackApplication() {
+    const input = document.getElementById("track_name").value.trim().toLowerCase();
+    const resultBox = document.getElementById("track-result");
+
+    const results = db.filter(r => r.name.toLowerCase() === input);
+
+    if (results.length === 0) {
+        resultBox.innerHTML = "<p style='color:red;'>Koi record nahi mila.</p>";
+        return;
+    }
+
+    resultBox.innerHTML = results.map(r => `
+        <div style="background:#1a1a1a;padding:20px;border-radius:15px;margin-bottom:15px;">
+            <h4 style="color:var(--blue)">${r.service}</h4>
+            <p>Status: <b style="color:var(--accent)">${r.status}</b></p>
+            <small>ID: ${r.id} | Date: ${r.date}</small>
+        </div>
+    `).join("");
+}
+
+/* =======================
+   ADMIN
+======================= */
+function checkAdmin() {
+    if (document.getElementById("admin_key").value === "Tushar@123") {
+        renderAdmin();
+        showPage("admin-dash");
+    } else {
+        alert("Galat Admin Key!");
+    }
+}
+
+function renderAdmin() {
+    const list = document.getElementById("admin-list");
+    list.innerHTML = db.map((r, i) => `
+        <div style="background:#111;padding:20px;border-radius:15px;margin-bottom:15px;display:flex;justify-content:space-between;">
+            <div>
+                <b>${r.name}</b> (${r.id})<br>
+                <span style="color:var(--blue)">${r.service}</span>
+            </div>
+            <div>
+                <select onchange="updateStatus(${i}, this.value)">
+                    <option ${r.status === "Process Pending" ? "selected" : ""}>Process Pending</option>
+                    <option ${r.status === "In Progress" ? "selected" : ""}>In Progress</option>
+                    <option ${r.status === "Completed" ? "selected" : ""}>Completed</option>
+                </select>
+                <button onclick="deleteRow(${i})" style="color:red;border:none;background:none;">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    `).join("");
+}
+
+function updateStatus(i, val) {
+    db[i].status = val;
+    localStorage.setItem("fande_master_db", JSON.stringify(db));
+}
+
+function deleteRow(i) {
+    if (confirm("Delete permanently?")) {
+        db.splice(i, 1);
+        localStorage.setItem("fande_master_db", JSON.stringify(db));
+        renderAdmin();
+    }
+}
+</script>
+
+</body>
+</html>
